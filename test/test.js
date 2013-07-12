@@ -71,6 +71,39 @@ function testCache(s, next) {
   });
 }
 
+function testCacheZero(s, next) {
+  var key = "k" + Date.now()
+
+  s.cache(key, function (next) {
+    next(null, 0);
+  }, function (err, data) {
+    assert.strictEqual(data, 0);
+    next();
+  });
+}
+
+function testCacheFalse(s, next) {
+  var key = "k" + Date.now()
+
+  s.cache(key, function (next) {
+    next(null, false);
+  }, function (err, data) {
+    assert.strictEqual(data, false);
+    next();
+  });
+}
+
+function testCacheNull(s, next) {
+  var key = "k" + Date.now()
+
+  s.cache(key, function (next) {
+    next(null, null);
+  }, function (err, data) {
+    assert.strictEqual(data, null);
+    next();
+  });
+}
+
 describe('hilmi', function () {
   describe("memory store", function () {
     it('should store items', function (next) {
@@ -87,6 +120,18 @@ describe('hilmi', function () {
 
     it('should cache items', function (next) {
       testCache(hilmi(), next)
+    });
+
+    it('should cache zero', function (next) {
+      testCacheZero(hilmi(), next)
+    });
+
+    it('should cache false', function (next) {
+      testCacheFalse(hilmi(), next)
+    });
+
+    it('should cache null', function (next) {
+      testCacheZero(hilmi(), next)
     });
   });
 
