@@ -1,6 +1,6 @@
 {
   "name": "hilmi",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Lightweight cache provider for Node.JS",
   "main": "index.js",
   "scripts": {
