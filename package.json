@@ -1,0 +1,27 @@
+{
+  "name": "hilmi",
+  "version": "0.0.0",
+  "description": "Lightweight cache provider for Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:eknkc/hilmi.git"
+  },
+  "keywords": [
+    "cache",
+    "redis",
+    "ttl"
+  ],
+  "author": "Ekin Koc",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  },
+  "dependencies": {
+    "lru-cache": "~2.3.0",
+    "redis": "~0.8.4"
+  }
+}
