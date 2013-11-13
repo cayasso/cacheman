@@ -19,8 +19,7 @@
     "caching",
     "mongo",
     "store",
-    "ttl",
-    "cacheman"
+    "ttl"
   ],  
   "license": "MIT",
   "devDependencies": {
