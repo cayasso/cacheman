@@ -145,21 +145,7 @@ describe('cacheman', function () {
     });
   });
 
-  it('should expire key', function (done) {
-    this.timeout(0);
-    cache.set('test7', { a: 1 }, 1, function (err) {
-      if (err) return done(err);
-      setTimeout(function () {
-        cache.get('test7', function (err, data) {
-        if (err) return done(err);
-          assert.equal(data, null);
-          done();
-        });
-      }, 1100);
-    });
-  });
-
-  it('should accept `redis` as valid engine', function () {
+  it('should accept `redis` as valid engine', function (done) {
     cache = new Cacheman('testing', { engine: 'redis' });
     cache.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
@@ -171,7 +157,7 @@ describe('cacheman', function () {
     });
   });
 
-  it('should accept `mongo` as valid engine', function () {
+  it('should accept `mongo` as valid engine', function (done) {
     cache = new Cacheman('testing', { engine: 'mongo' });
     cache.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
@@ -183,21 +169,32 @@ describe('cacheman', function () {
     });
   });
 
-  it('should allow custom engine', function () {
+  it('should allow custom engine', function (done) {
     function engine(bucket, options) {
+      var store = {};
       return {
-        set: function () {},
-        get: function () {},
-        del: function () {},
-        clear: function () {}
+        set: function (key, data, ttl, fn) { store[key] = data; fn(null, data); },
+        get: function (key, fn) { fn(null, store[key]); },
+        del: function (key) { delete store[key]; },
+        clear: function () { store = {}; }
       };
     }
 
     cache = new Cacheman('testing', { engine: engine });
     cache.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
-      cache.get('test1', done);
+      cache.get('test1', function () {
+        done();
+      });
     });
+  });
+
+  it('should throw error on engine missing engine', function () {
+    assert.throws(function() {
+        new Cacheman(null, { engine: 'missing' });
+      },
+      Error
+    );
   });
 
 });
