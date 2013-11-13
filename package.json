@@ -1,27 +1,34 @@
 {
-  "name": "hilmi",
-  "version": "1.0.1",
-  "description": "Lightweight cache provider for Node.JS",
+  "name": "cacheman",
+  "version": "0.1.0",
+  "description": "Small and efficient cache provider for Node.JS with In-memory, Redis and MongoDB engines",
+  "author": "Jonathan Brumley <cayasso@gmail.com>",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:eknkc/hilmi.git"
+    "url": "git://github.com/cayasso/cacheman.git"
   },
   "keywords": [
     "cache",
     "redis",
-    "ttl"
-  ],
-  "author": "Ekin Koc",
+    "memory",
+    "mongodb",
+    "caching",
+    "mongo",
+    "store",
+    "ttl",
+    "cacheman"
+  ],  
   "license": "MIT",
   "devDependencies": {
-    "mocha": "~1.12.0"
+    "mocha": "~1.12.0",
+    "cacheman-redis": "0.1.x",
+    "cacheman-mongo": "0.1.x"
   },
   "dependencies": {
-    "lru-cache": "~2.3.0",
-    "redis": "~0.8.4"
+    "cacheman-memory": "0.1.x"
   }
 }

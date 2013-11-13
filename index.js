@@ -1,1 +1,1 @@
-module.exports = require("./lib/hilmi.js");
+module.exports = require("./lib/");
