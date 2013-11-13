@@ -126,6 +126,10 @@ $ make test
  * [cacheman-redis](https://github.com/cayasso/cacheman-redis)
  * [cacheman-mongo](https://github.com/cayasso/cacheman-mongo)
 
+## Credits
+
+This library was inspired by the [hilmi](https://github.com/eknkc/hilmi) project.
+
 ## License
 
 (The MIT License)
