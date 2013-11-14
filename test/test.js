@@ -180,7 +180,7 @@ describe('cacheman', function () {
       };
     }
 
-    var c = new Cacheman('testing', { engine: engine });
+    var c = new Cacheman('test', { engine: engine });
     c.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
       c.get('test1', function () {
@@ -215,21 +215,22 @@ describe('cacheman', function () {
           assert.strictEqual(data, null);
           done();
         });
-      }, 1001);
+      }, 1100);
     });
   });
 
   it('should expire key', function (done) {
     this.timeout(0);
-    cache.set('test123', { a: 1 }, 1, function (err) {
+    var key = "k" + Date.now();
+    cache.set(key, { a: 1 }, 1, function (err) {
       if (err) return done(err);
       setTimeout(function () {
-        cache.get('test123', function (err, data) {
+        cache.get(key, function (err, data) {
         if (err) return done(err);
           assert.equal(data, null);
           done();
         });
-      }, 1001);
+      }, 1100);
     });
   });
 
