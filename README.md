@@ -81,6 +81,16 @@ cache.set('foo', { a: 'bar' }, 60, function (err, value) {
 });
 ```
 
+You can also use humman readable values for `ttl` like: `1s`, `1m`, etc. Check out the [ms](https://github.com/guille/ms.js) project for additional information on supported formats.
+
+```javascript
+// key will expire in 45 seconds
+cache.set('foo', { a: 'bar' }, '45s', function (err, value) {
+  if (err) throw err;
+  console.log(value); //-> {a:'bar'}
+});
+```
+
 ### cache.get(key, fn)
 
 Retrieves a value for a given key, if there is no value for the given key a null value will be returned.
