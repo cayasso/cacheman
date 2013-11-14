@@ -180,10 +180,10 @@ describe('cacheman', function () {
       };
     }
 
-    cache = new Cacheman('testing', { engine: engine });
-    cache.set('test1', { a: 1 }, function (err) {
+    var c = new Cacheman('testing', { engine: engine });
+    c.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
-      cache.get('test1', function () {
+      c.get('test1', function () {
         done();
       });
     });
@@ -197,26 +197,39 @@ describe('cacheman', function () {
     );
   });
 
-  it('should allow passing ttl in human readable format', function (done) {
+  it('should allow passing ttl in human readable format minutes', function (done) {
     var key = "k" + Date.now();
     cache.set(key, 'human way', '1m', function (err, data) {
       cache.get(key, function (err, data) {
         assert.strictEqual(data, 'human way');
-        key = "k" + Date.now();
-        cache.set(key, 'human way again', '1s', function (err, data) {
-          setTimeout(function () {
-            cache.get(key, function (err, data) {
-              assert.strictEqual(data, undefined);
-              cache.set(key, 'human way seconds', '1s', function (err, data) {
-                cache.get(key, function (err, data) {
-                  assert.strictEqual(data, 'human way seconds');
-                  done();
-                });
-              });
-            });
-          }, 1001);
-        });
+        done();
       });
+    });
+  });
+
+  it('should allow passing ttl in human readable format seconds', function (done) {
+    var key = "k" + Date.now();
+    cache.set(key, 'human way again', '1s', function (err, data) {
+      setTimeout(function () {
+        cache.get(key, function (err, data) {
+          assert.strictEqual(data, null);
+          done();
+        });
+      }, 1001);
+    });
+  });
+
+  it('should expire key', function (done) {
+    this.timeout(0);
+    cache.set('test123', { a: 1 }, 1, function (err) {
+      if (err) return done(err);
+      setTimeout(function () {
+        cache.get('test123', function (err, data) {
+        if (err) return done(err);
+          assert.equal(data, null);
+          done();
+        });
+      }, 1001);
     });
   });
 
