@@ -1,6 +1,6 @@
 {
   "name": "cacheman",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Small and efficient cache provider for Node.JS with In-memory, Redis and MongoDB engines",
   "author": "Jonathan Brumley <cayasso@gmail.com>",
   "main": "index.js",
