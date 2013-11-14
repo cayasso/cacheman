@@ -144,7 +144,7 @@ describe('cacheman', function () {
       done();
     });
   });
-
+  
   it('should accept `redis` as valid engine', function (done) {
     cache = new Cacheman('testing', { engine: 'redis' });
     cache.set('test1', { a: 1 }, function (err) {
@@ -195,6 +195,29 @@ describe('cacheman', function () {
       },
       Error
     );
+  });
+
+  it('should allow passing ttl in human readable format', function (done) {
+    var key = "k" + Date.now();
+    cache.set(key, 'human way', '1m', function (err, data) {
+      cache.get(key, function (err, data) {
+        assert.strictEqual(data, 'human way');
+        key = "k" + Date.now();
+        cache.set(key, 'human way again', '1s', function (err, data) {
+          setTimeout(function () {
+            cache.get(key, function (err, data) {
+              assert.strictEqual(data, undefined);
+              cache.set(key, 'human way seconds', '1s', function (err, data) {
+                cache.get(key, function (err, data) {
+                  assert.strictEqual(data, 'human way seconds');
+                  done();
+                });
+              });
+            });
+          }, 1001);
+        });
+      });
+    });
   });
 
 });
