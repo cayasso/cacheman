@@ -127,7 +127,7 @@ cache.clear(function (err) {
 ### cache.cache(key, data, ttl, [fn])
 
 Cache shortcut method that support middleware. This method will first call `get`
-and if the key is not found in cache it will call `cache.set` to save the value in cache.
+and if the key is not found in cache it will call `set` to save the value in cache.
 
 ```javascript
 cache.cache('foo', { a: 'bar' }, '45s', function (err) {
