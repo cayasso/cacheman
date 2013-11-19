@@ -19,7 +19,8 @@
     "caching",
     "mongo",
     "store",
-    "ttl"
+    "ttl",
+    "middleware"
   ],
   "license": "MIT",
   "devDependencies": {
