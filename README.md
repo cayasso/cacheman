@@ -124,6 +124,96 @@ cache.clear(function (err) {
 });
 ```
 
+### cache.cache(key, data, ttl, [fn])
+
+Cache shortcut method that support middleware. This method will first call `cache.get`
+and if the key is not found in cache it will call `cache.set` to save the value in cache.
+
+```javascript
+cache.cache('foo', { a: 'bar' }, '45s', function (err) {
+  if (err) throw err;
+  console.log(value); //-> {a:'bar'}
+});
+```
+
+### cache.use(fn)
+
+This method allow to add middlewares that will be executed when the `cache.cache` method 
+is called, meaning that you can intercept the function right after the `cache.get` and `cache.get` methods.
+
+Midlewares allow a low level way to manipulate the cache via the `cache.cache` method.
+
+For example we can add a middleware that will force ttl of 10 seconds on all values to cache:
+
+```javascript
+function expireInMiddleware (expireIn) {
+  return function (key, data, ttl, next) {
+    next(null, data, expire);
+  }
+};
+
+cache.use(expireInMiddleware('10s'));
+
+cache.cache('foo', { a: 'bar' }, '45s', function (err) {
+  if (err) throw err;
+  console.log(value); //-> {a:'bar'}
+});
+```
+
+Or we can add a middleware to ovewrite the value:
+
+```javascript
+function overwriteMiddleware (val) {
+  return function (key, data, ttl, next) {
+    next(null, val, expire);
+  }
+};
+
+cache.use(overwriteMiddleware({ a: 'foo' }));
+
+cache.cache('foo', { a: 'bar' }, '45s', function (err, data) {
+  if (err) throw err;
+  console.log(data); //-> {a:'foo'}
+});
+```
+
+You can also pass errors as first argument to stop the cache execution:
+
+```javascript
+function overwriteMiddleware () {
+  return function (key, data, ttl, next) {
+    next(new Error('There was an error'));
+  }
+};
+
+cache.use(overwriteMiddleware());
+
+cache.cache('foo', { a: 'bar' }, '45s', function (err) {
+  if (err) throw err; // Will throw the error
+});
+```
+
+You can use a middleware to re-cache a value even if this is not expired, 
+by passing `true` as the forth argument.
+
+```javascript
+function recacheMiddleware (val) {
+  return function (key, data, ttl, next) {
+
+    // this will force re-caching even if key
+    // is not expired.
+    next(null, val, ttl, true);
+  }
+};
+
+cache.use(overwriteMiddleware({ a: 'forced' }));
+
+cache.cache('foo', { a: 'bar' }, '45s', function (err) {
+  if (err) throw err;
+  console.log(data); //-> { a: 'forced' }
+});
+```
+
 ## Run tests
 
 ``` bash
