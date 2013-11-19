@@ -4,12 +4,12 @@ var assert = require('assert')
 
 describe('cacheman', function () {
 
-  before(function(done){
+  beforeEach(function(done){
     cache = new Cacheman('testing');
     done();
   });
 
-  after(function(done){
+  afterEach(function(done){
     cache.clear();
     done();
   });
@@ -121,6 +121,64 @@ describe('cacheman', function () {
     });
   });
 
+  it('should allow middleware when using `cache` method', function (done) {
+
+    this.timeout(0);
+    var value = Date.now()
+    , key = "k" + Date.now();
+
+    function middleware() {
+      return function(key, data, ttl, next){
+        next();
+      };
+    }
+
+    cache.use(middleware());
+    cache.cache(key, value, 1, function (err, data) {
+      assert.strictEqual(data, value);
+      done();
+    });
+  });
+
+  it('should allow middleware to overwrite caching values', function (done) {
+    var value = Date.now()
+    , key = "k" + Date.now();
+
+    function middleware() {
+      return function(key, data, ttl, next){
+        next(null, 'data', 1);
+      };
+    }
+
+    cache.use(middleware());
+    cache.cache(key, value, 1, function (err, data) {
+      assert.strictEqual(data, 'data');
+      done();
+    });
+  });
+
+  it('should allow middleware to accept errors', function (done) {
+
+    var value = Date.now()
+      , key = "k" + Date.now()
+      , error = new Error('not');
+
+    function middleware() {
+      return function(key, data, ttl, next){
+        next(error);
+      };
+    }
+
+    cache.use(middleware());
+
+    cache.cache(key, value, 1, function (err, data) {
+      if (1 === arguments.length && err) {
+        assert.strictEqual(err, error);
+        done();
+      }
+    });
+  });
+
   it('should cache zero', function (done) {
     var key = "k" + Date.now();
     cache.cache(key, 0, function (err, data) {
@@ -212,7 +270,7 @@ describe('cacheman', function () {
     cache.set(key, 'human way again', '1s', function (err, data) {
       setTimeout(function () {
         cache.get(key, function (err, data) {
-          assert.strictEqual(data, null);
+          assert.equal(data, null);
           done();
         });
       }, 1100);
