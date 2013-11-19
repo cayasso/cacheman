@@ -126,7 +126,7 @@ cache.clear(function (err) {
 
 ### cache.cache(key, data, ttl, [fn])
 
-Cache shortcut method that support middleware. This method will first call `cache.get`
+Cache shortcut method that support middleware. This method will first call `get`
 and if the key is not found in cache it will call `cache.set` to save the value in cache.
 
 ```javascript
@@ -138,10 +138,10 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 
 ### cache.use(fn)
 
-This method allow to add middlewares that will be executed when the `cache.cache` method 
-is called, meaning that you can intercept the function right after the `cache.get` and `cache.get` methods.
+This method allow to add middlewares that will be executed when the `cache` method 
+is called, meaning that you can intercept the function right after the `get` and `get` methods.
 
-Midlewares allow a low level way to manipulate the cache via the `cache.cache` method.
+Midlewares allow a low level way to manipulate the cache via the `cache` method.
 
 For example we can add a middleware that will force ttl of 10 seconds on all values to cache:
 
