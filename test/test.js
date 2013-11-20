@@ -179,52 +179,6 @@ describe('cacheman', function () {
     });
   });
 
-  it('should force re-caching via middleware', function (done) {
-
-    var value = Date.now()
-      , key = "k" + Date.now();
-
-    function middleware() {
-      return function(key, data, ttl, next){
-        next(null, 'recaching', ttl, true);
-      };
-    }
-
-    cache.use(middleware());
-
-    cache.cache(key, value, 1, function (err) {
-      if (err) return done(err);
-      cache.cache(key, value, 1, function (err, data) {
-        if (err) return done(err);
-        assert.strictEqual(data, 'recaching');
-        done();
-      });
-    });
-  });
-
-  it('should not allow re-caching if not forced via middleware', function (done) {
-
-    var value = Date.now()
-      , key = "k" + Date.now();
-
-    function middleware() {
-      return function(key, data, ttl, next){
-        next(null, 'recaching', ttl);
-      };
-    }
-
-    cache.use(middleware());
-
-    cache.cache(key, value, 1, function (err) {
-      if (err) return done(err);
-      cache.cache(key, value, 1, function (err, data) {
-        if (err) return done(err);
-        assert.strictEqual(data, value);
-        done();
-      });
-    });
-  });
-
   it('should cache zero', function (done) {
     var key = "k" + Date.now();
     cache.cache(key, 0, function (err, data) {

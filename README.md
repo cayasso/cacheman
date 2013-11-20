@@ -141,8 +141,6 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 This method allow to add middlewares that will be executed when the `cache` method 
 is called, meaning that you can intercept the function right after the `get` and `get` methods.
 
-Midlewares allow a low level way to manipulate the cache via the `cache` method.
-
 For example we can add a middleware that will force ttl of 10 seconds on all values to cache:
 
 ```javascript
@@ -190,27 +188,6 @@ cache.use(overwriteMiddleware());
 
 cache.cache('foo', { a: 'bar' }, '45s', function (err) {
   if (err) throw err; // Will throw the error
-});
-```
-
-You can use a middleware to re-cache a value even if this is not expired, 
-by passing `true` as the forth argument.
-
-```javascript
-function recacheMiddleware (val) {
-  return function (key, data, ttl, next) {
-
-    // this will force re-caching even if key
-    // is not expired.
-    next(null, val, ttl, true);
-  }
-};
-
-cache.use(overwriteMiddleware({ a: 'forced' }));
-
-cache.cache('foo', { a: 'bar' }, '45s', function (err) {
-  if (err) throw err;
-  console.log(data); //-> { a: 'forced' }
 });
 ```
 
