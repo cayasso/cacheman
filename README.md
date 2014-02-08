@@ -45,7 +45,7 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 ### Cacheman(name, [options])
 
-Create `cacheman` instance. It accepts a required `name` and an `options`. `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
+Create `cacheman` instance. It accepts a required `name` and an `options`. `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
 
 By default `cacheman` uses the `cacheman-memory` engine.
 
