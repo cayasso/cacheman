@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cayasso/cacheman.png?branch=master)](https://travis-ci.org/cayasso/cacheman)
 [![NPM version](https://badge.fury.io/js/cacheman.png)](http://badge.fury.io/js/cacheman)
 
-Small and efficient cache provider for Node.JS with In-memory, Redis and MongoDB engines.
+Small and efficient cache provider for Node.JS with In-memory, File, Redis and MongoDB engines.
 
 ## Instalation
 
@@ -45,7 +45,7 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 ### Cacheman(name, [options])
 
-Create `cacheman` instance. It accepts a required `name` and an `options`. `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
+Create `cacheman` instance. It accepts a required `name` and an `options`. `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
 
 By default `cacheman` uses the `cacheman-memory` engine.
 
@@ -202,6 +202,7 @@ $ make test
  * [cacheman-memory](https://github.com/cayasso/cacheman-memory)
  * [cacheman-redis](https://github.com/cayasso/cacheman-redis)
  * [cacheman-mongo](https://github.com/cayasso/cacheman-mongo)
+ * [cacheman-file](https://github.com/taronfoxworth/cacheman-file)
 
 ## Credits
 
