@@ -227,6 +227,20 @@ describe('cacheman', function () {
     });
   });
 
+  
+  // Testing Cacheman-file
+  it('should accept `file` as a valid engine', function (done) {
+    cache = new Cacheman('testing', {engine: 'file' });
+    cache.set('test1', { a:1 }, function (err) {
+      if (err) return done(err);
+      cache.get('test1', function (err, data) {
+        if (err) return done(err);
+        assert.equal(data.a, 1);
+        done();
+      });
+    });
+  });
+
   it('should allow custom engine', function (done) {
     function engine(bucket, options) {
       var store = {};

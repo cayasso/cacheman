@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cayasso/cacheman.png?branch=master)](https://travis-ci.org/cayasso/cacheman)
 [![NPM version](https://badge.fury.io/js/cacheman.png)](http://badge.fury.io/js/cacheman)
 
-Small and efficient cache provider for Node.JS with In-memory, Redis and MongoDB engines.
+Small and efficient cache provider for Node.JS with In-memory, File, Redis and MongoDB engines.
 
 ## Instalation
 
@@ -202,6 +202,7 @@ $ make test
  * [cacheman-memory](https://github.com/cayasso/cacheman-memory)
  * [cacheman-redis](https://github.com/cayasso/cacheman-redis)
  * [cacheman-mongo](https://github.com/cayasso/cacheman-mongo)
+ * [cacheman-file](https://github.com/taronfoxworth/cacheman-file)
 
 ## Credits
 
