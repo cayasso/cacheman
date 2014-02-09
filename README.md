@@ -139,7 +139,7 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 ### cache.use(fn)
 
 This method allow to add middlewares that will be executed when the `cache` method 
-is called, meaning that you can intercept the function right after the `get` and `get` methods.
+is called, meaning that you can intercept the function right after the `get` and `set` methods.
 
 For example we can add a middleware that will force ttl of 10 seconds on all values to cache:
 
