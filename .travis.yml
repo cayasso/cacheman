@@ -6,3 +6,5 @@ node_js:
 services:
   - redis
   - mongodb
+before_install:
+  - npm install -g npm
