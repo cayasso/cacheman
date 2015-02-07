@@ -5,7 +5,7 @@
 
 Small and efficient cache provider for Node.JS with In-memory, File, Redis and MongoDB engines.
 
-## Instalation
+## Installation
 
 ``` bash
 $ npm install cacheman
