@@ -227,8 +227,6 @@ describe('cacheman', function () {
     });
   });
 
-  
-  // Testing Cacheman-file
   it('should accept `file` as a valid engine', function (done) {
     cache = new Cacheman('testing', {engine: 'file' });
     cache.set('test1', { a:1 }, function (err) {
