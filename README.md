@@ -47,6 +47,8 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 Create `cacheman` instance. It accepts a required `name` and an `options`. `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
 
+You can also pass an already initialized client `engine` as valid engine so you can re-use among multiple cacheman instances.
+
 By default `cacheman` uses the `cacheman-memory` engine.
 
 ```javascript
@@ -58,6 +60,18 @@ var options = {
 };
 
 var cache = new Cacheman('todo', options);
+```
+
+Reuse engine in multiple cache instances:
+
+```javascript
+var Cacheman = require('cacheman');
+var EngineMongo = require('cacheman-mongo');
+var engine = new Engine();
+
+// Share same engine:
+var todoCache = new Cacheman('todo', { engine: engine });
+var blogCache = new Cacheman('blog', { engine: engine });
 ```
 
 ### cache.set(key, value, [ttl, [fn]])
