@@ -21,17 +21,19 @@
     "mongo",
     "store",
     "ttl",
-    "middleware"
+    "middleware",
+    "bucket"
   ],
   "license": "MIT",
   "devDependencies": {
-    "mocha": "~1.12.0",
-    "cacheman-redis": "~0.1.x",
+    "cacheman-file": "latest",
     "cacheman-mongo": "~0.1.x",
-    "cacheman-file": "latest"
+    "cacheman-redis": "~0.1.x",
+    "mocha": "~1.12.0",
+    "pre-commit": "^1.0.2"
   },
   "dependencies": {
     "cacheman-memory": "~0.1.x",
-    "ms": "~0.6.1"
+    "ms": "^0.6.2"
   }
 }

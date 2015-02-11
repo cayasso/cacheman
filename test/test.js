@@ -241,6 +241,20 @@ describe('cacheman', function () {
     });
   });
 
+  it('should accept existing engine instance as engine', function (done) {
+    var Engine = require('cacheman-mongo');
+    var engine = new Engine();
+    cache = new Cacheman('testing', { engine: engine });
+    cache.set('abcd', { a: 1 }, function (err) {
+      if (err) return done(err);
+      cache.get('abcd', function (err, data) {
+        if (err) return done(err);
+        assert.equal(data.a, 1);
+        done();
+      });
+    });
+  });
+
   it('should allow custom engine', function (done) {
     function engine(bucket, options) {
       var store = {};
