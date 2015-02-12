@@ -15,7 +15,16 @@ $ npm install cacheman
 
 ```javascript
 var Cacheman = require('cacheman');
+var cache = new Cacheman();
+
+// or
 var cache = new Cacheman('todo');
+
+// or
+var cache = new Cacheman({ ttl: 90 });
+
+// or
+var cache = new Cacheman('todo', { ttl: 90 });
 
 // set the value
 cache.set('my key', { foo: 'bar' }, function (error) {
@@ -43,9 +52,9 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 ## API
 
-### Cacheman(name, [options])
+### Cacheman([name, [options]])
 
-Create `cacheman` instance. It accepts a required `name` and an `options`. `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
+Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
 
 You can also pass an already initialized client `engine` as valid engine so you can re-use among multiple cacheman instances.
 
