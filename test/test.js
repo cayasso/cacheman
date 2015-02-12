@@ -21,14 +21,6 @@ describe('cacheman', function () {
     assert.ok(cache.clear);
     assert.ok(cache.cache);
   });
-
-  it('should throw error on invalid name', function () {
-    assert.throws(function() {
-        new Cacheman(null);
-      },
-      Error
-    );
-  });
     
   it('should store items', function (done) {
     cache.set('test1', { a: 1 }, function (err) {
@@ -273,7 +265,7 @@ describe('cacheman', function () {
     });
   });
 
-  it('should throw error on engine missing engine', function () {
+  it('should throw error on missing engine', function () {
     assert.throws(function() {
         new Cacheman(null, { engine: 'missing' });
       },
