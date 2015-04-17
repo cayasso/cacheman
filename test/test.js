@@ -310,4 +310,16 @@ describe('cacheman', function () {
     });
   });
 
+  it('should wrap works', function (done) {
+    this.timeout(0);
+    var key = "k" + Date.now();
+    cache.wrap(key, function (callback) {
+      callback(null, {a: 1})
+    }, 1100, function (err, data) {
+      if (err) return done(err);
+      assert.equal(data.a, 1);
+      done();
+    });
+  });
+
 });
