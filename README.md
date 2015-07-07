@@ -214,6 +214,22 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 });
 ```
 
+### cache.wrap(key, work, [ttl, [fn]])
+
+Wraps a function in cache. The first time the function is run, its results are 
+stored in cache so subsequent calls retrieve from cache instead of calling the function.
+
+```javascript
+function work(callback) {
+  callback(null, { a: 'foo' });
+}
+
+cache.wrap('foo', work, '45s', function (err, data) {
+  console.log(data); //-> {a: 'foo'}
+});
+
+```
+
 ## Run tests
 
 ``` bash
