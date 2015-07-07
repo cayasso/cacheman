@@ -21,6 +21,20 @@ describe('cacheman', function () {
     assert.ok(cache.clear);
     assert.ok(cache.cache);
   });
+
+  it('should not allow invalid keys', function (done) {
+    var msg = 'Invalid key, key must be a string.';
+    cache.set(1, {}, function (err) {
+      assert.equal(err.message, msg);
+      cache.set(null, {}, function (err) {
+        assert.equal(err.message, msg);
+        cache.set(undefined, {}, function (err) {
+        assert.equal(err.message, msg);
+          done();
+        });
+      });
+    });
+  });
     
   it('should store items', function (done) {
     cache.set('test1', { a: 1 }, function (err) {
