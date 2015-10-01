@@ -1,6 +1,7 @@
-var assert = require('assert')
-  , Cacheman = require('../')
-  , cache;
+import assert from 'assert';
+import Cacheman from '../lib/index';
+
+let cache;
 
 describe('cacheman', function () {
 
@@ -23,7 +24,7 @@ describe('cacheman', function () {
   });
 
   it('should not allow invalid keys', function (done) {
-    var msg = 'Invalid key, key must be a string.';
+    let msg = 'Invalid key, key must be a string.';
     cache.set(1, {}, function (err) {
       assert.equal(err.message, msg);
       cache.set(null, {}, function (err) {
@@ -81,7 +82,7 @@ describe('cacheman', function () {
   });
 
   it('should delete items', function (done) {
-    var value = Date.now();
+    let value = Date.now();
     cache.set('test5', value, function (err) {
       if (err) return done(err);
       cache.get('test5', function (err, data) {
@@ -100,7 +101,7 @@ describe('cacheman', function () {
   });
 
   it('should clear items', function (done) {
-    var value = Date.now();
+    let value = Date.now();
     cache.set('test6', value, function (err) {
       if (err) return done(err);
       cache.get('test6', function (err, data) {
@@ -119,7 +120,7 @@ describe('cacheman', function () {
   });
   
   it('should cache items', function (done) {
-    var value = Date.now()
+    let value = Date.now()
     , key = "k" + Date.now();
     cache.cache(key, value, 10, function (err, data) {
       assert.equal(data, value);
@@ -130,7 +131,7 @@ describe('cacheman', function () {
   it('should allow middleware when using `cache` method', function (done) {
 
     this.timeout(0);
-    var value = Date.now()
+    let value = Date.now()
     , key = "k" + Date.now();
 
     function middleware() {
@@ -147,7 +148,7 @@ describe('cacheman', function () {
   });
 
   it('should allow middleware to overwrite caching values', function (done) {
-    var value = Date.now()
+    let value = Date.now()
     , key = "k" + Date.now();
 
     function middleware() {
@@ -165,7 +166,7 @@ describe('cacheman', function () {
 
   it('should allow middleware to accept errors', function (done) {
 
-    var value = Date.now()
+    let value = Date.now()
       , key = "k" + Date.now()
       , error = new Error('not');
 
@@ -186,7 +187,7 @@ describe('cacheman', function () {
   });
 
   it('should cache zero', function (done) {
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.cache(key, 0, function (err, data) {
       assert.strictEqual(data, 0);
       done();
@@ -194,7 +195,7 @@ describe('cacheman', function () {
   });
 
   it('should cache false', function (done) {
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.cache(key, false, function (err, data) {
       assert.strictEqual(data, false);
       done();
@@ -202,7 +203,7 @@ describe('cacheman', function () {
   });
 
   it('should cache null', function (done) {
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.cache(key, null, 10, function (err, data) {
       assert.strictEqual(data, null);
       done();
@@ -246,8 +247,8 @@ describe('cacheman', function () {
   });
 
   it('should accept existing engine instance as engine', function (done) {
-    var Engine = require('cacheman-mongo');
-    var engine = new Engine();
+    let Engine = require('cacheman-mongo');
+    let engine = new Engine();
     cache = new Cacheman('testing', { engine: engine });
     cache.set('abcd', { a: 1 }, function (err) {
       if (err) return done(err);
@@ -261,7 +262,7 @@ describe('cacheman', function () {
 
   it('should allow custom engine', function (done) {
     function engine(bucket, options) {
-      var store = {};
+      let store = {};
       return {
         set: function (key, data, ttl, fn) { store[key] = data; fn(null, data); },
         get: function (key, fn) { fn(null, store[key]); },
@@ -270,7 +271,7 @@ describe('cacheman', function () {
       };
     }
 
-    var c = new Cacheman('test', { engine: engine });
+    let c = new Cacheman('test', { engine: engine });
     c.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
       c.get('test1', function () {
@@ -288,7 +289,7 @@ describe('cacheman', function () {
   });
 
   it('should allow passing ttl in human readable format minutes', function (done) {
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.set(key, 'human way', '1m', function (err, data) {
       cache.get(key, function (err, data) {
         assert.strictEqual(data, 'human way');
@@ -298,7 +299,7 @@ describe('cacheman', function () {
   });
 
   it('should allow passing ttl in human readable format seconds', function (done) {
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.set(key, 'human way again', '1s', function (err, data) {
       setTimeout(function () {
         cache.get(key, function (err, data) {
@@ -311,7 +312,7 @@ describe('cacheman', function () {
 
   it('should expire key', function (done) {
     this.timeout(0);
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.set(key, { a: 1 }, 1, function (err) {
       if (err) return done(err);
       setTimeout(function () {
@@ -326,7 +327,7 @@ describe('cacheman', function () {
 
   it('should wrap a function in cache', function (done) {
     this.timeout(0);
-    var key = "k" + Date.now();
+    let key = "k" + Date.now();
     cache.wrap(key, function (callback) {
       callback(null, {a: 1})
     }, 1100, function (err, data) {
