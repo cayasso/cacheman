@@ -35,7 +35,7 @@ describe('cacheman', function () {
       });
     });
   });
-    
+
   it('should store items', function (done) {
     cache.set('test1', { a: 1 }, function (err) {
       if (err) return done(err);
@@ -117,7 +117,7 @@ describe('cacheman', function () {
       });
     });
   });
-  
+
   it('should cache items', function (done) {
     var value = Date.now()
     , key = "k" + Date.now();
@@ -208,7 +208,7 @@ describe('cacheman', function () {
       done();
     });
   });
-  
+
   it('should accept `redis` as valid engine', function (done) {
     cache = new Cacheman('testing', { engine: 'redis' });
     cache.set('test1', { a: 1 }, function (err) {
