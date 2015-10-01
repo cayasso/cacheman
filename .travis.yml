@@ -8,6 +8,3 @@ node_js:
   - "0.10"
 before_install:
   - "npm install npm -g"
-services:
-  - redis
-  - mongodb

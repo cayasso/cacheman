@@ -27,9 +27,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "cacheman-file": "latest",
-    "cacheman-mongo": "^0.2.1",
-    "cacheman-redis": "^0.2.0",
     "mocha": "~2.3.3",
     "pre-commit": "^1.1.1"
   },
