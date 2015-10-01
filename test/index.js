@@ -289,9 +289,7 @@ describe('cacheman', function () {
 
   it('should not change wrapped function result type', function(done) {
     var key = "k" + Date.now();
-    var cache = new Cacheman('testing', {
-      engine: 'redis'
-    });
+    var cache = new Cacheman('testing');
     cache.wrap(key, function (callback) {
       callback(null, {a: 1})
     }, 1100, function (err, data) {
