@@ -30,13 +30,12 @@
     "cacheman-file": "latest",
     "cacheman-mongo": "^0.2.1",
     "cacheman-redis": "^0.2.0",
-    "mocha": "~1.12.0",
-    "pre-commit": "^1.0.2",
-    "should": "^7.1.0"
+    "mocha": "~2.3.3",
+    "pre-commit": "^1.1.1"
   },
   "dependencies": {
     "babel": "^5.8.23",
     "cacheman-memory": "~0.1.x",
-    "ms": "^0.6.2"
+    "ms": "^0.7.1"
   }
 }
