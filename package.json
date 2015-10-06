@@ -6,7 +6,7 @@
   "main": "./node/index",
   "scripts": {
     "test": "make test",
-    "postinstall": "make"
+    "postinstall": "babel lib -d node"
   },
   "repository": {
     "type": "git",
