@@ -1,3 +1,9 @@
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
 import assert from 'assert';
 import Cacheman from '../lib/index';
 

@@ -12,7 +12,6 @@ clean:
 test:
 	@./node_modules/.bin/mocha \
 		--reporter spec \
-		--require babel/register \
 		--recursive \
 		test
 
