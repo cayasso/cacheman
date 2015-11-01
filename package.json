@@ -27,12 +27,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "babel": "^5.8.29",
     "mocha": "~2.3.3",
-    "pre-commit": "^1.1.1"
+    "pre-commit": "^1.1.2"
   },
   "dependencies": {
-    "babel": "^5.8.23",
-    "cacheman-memory": "~0.1.x",
+    "cacheman-memory": "~1.0.x",
     "ms": "^0.7.1"
   }
 }
