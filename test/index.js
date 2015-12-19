@@ -29,6 +29,15 @@ describe('cacheman', function () {
     assert.ok(cache.cache);
   });
 
+  it('should set correct prefix', function () {
+    let c1 = new Cacheman();
+    let c2 = new Cacheman('foo');
+    let c3 = new Cacheman('foo', { prefix: 'myprefix' });
+    assert.equal(c1._prefix, 'cacheman:cache:');
+    assert.equal(c2._prefix, 'cacheman:foo:');
+    assert.equal(c3._prefix, 'myprefix:foo:');
+  });
+
   it('should not allow invalid keys', function (done) {
     let msg = 'Invalid key, key must be a string.';
     cache.set(1, {}, function (err) {
