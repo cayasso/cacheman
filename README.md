@@ -40,7 +40,7 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
     // delete entry
     cache.del('my key', function (error){
-      
+
       if (error) throw error;
 
       console.log('value deleted');
@@ -119,7 +119,7 @@ cache.set('foo', { a: 'bar' }, '45s', function (err, value) {
 Retrieves a value for a given key, if there is no value for the given key a null value will be returned.
 
 ```javascript
-cache.get(function (err, value) {
+cache.get('foo', function (err, value) {
   if (err) throw err;
   console.log(value);
 });
@@ -161,7 +161,7 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 
 ### cache.use(fn)
 
-This method allow to add middlewares that will be executed when the `cache` method 
+This method allow to add middlewares that will be executed when the `cache` method
 is called, meaning that you can intercept the function right after the `get` and `set` methods.
 
 For example we can add a middleware that will force ttl of 10 seconds on all values to cache:
@@ -216,7 +216,7 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 
 ### cache.wrap(key, work, [ttl, [fn]])
 
-Wraps a function in cache. The first time the function is run, its results are 
+Wraps a function in cache. The first time the function is run, its results are
 stored in cache so subsequent calls retrieve from cache instead of calling the function.
 
 ```javascript
