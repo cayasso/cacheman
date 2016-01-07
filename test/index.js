@@ -39,7 +39,7 @@ describe('cacheman', function () {
   });
 
   it('should not allow invalid keys', function (done) {
-    let msg = 'Invalid key, key must be a string.';
+    let msg = 'Invalid key, key must be a string or array.';
     cache.set(1, {}, function (err) {
       assert.equal(err.message, msg);
       cache.set(null, {}, function (err) {
@@ -222,6 +222,29 @@ describe('cacheman', function () {
     cache.cache(key, null, 10, function (err, data) {
       assert.strictEqual(data, null);
       done();
+    });
+  });
+
+  it('should allow array keys', function (done) {
+    cache.set(['a', 'b'], 'array keyed', function (err) {
+      if (err) return done(err);
+      cache.get('a:b', function (err, data) {
+        if (err) return done(err);
+        assert.equal(data, 'array keyed');
+        done();
+      });
+    });
+  });
+
+  it('should allow the delimiter to be customized', function (done) {
+    let c = new Cacheman({ delimiter: '-' });
+    c.set(['a', 'b'], 'array keyed', function (err) {
+      if (err) return done(err);
+      c.get('a-b', function (err, data) {
+        if (err) return done(err);
+        assert.equal(data, 'array keyed');
+        done();
+      });
     });
   });
 

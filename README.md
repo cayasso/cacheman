@@ -54,7 +54,7 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 ### Cacheman([name, [options]])
 
-Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
+Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds, `delimiter` to change the delimiter used for array keys (default: `':'`), `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
 
 You can also pass an already initialized client `engine` as valid engine so you can re-use among multiple cacheman instances.
 
@@ -111,6 +111,15 @@ You can also use humman readable values for `ttl` like: `1s`, `1m`, etc. Check o
 cache.set('foo', { a: 'bar' }, '45s', function (err, value) {
   if (err) throw err;
   console.log(value); //-> {a:'bar'}
+});
+```
+
+The key may also be an array. It will be joined into a string using the `delimiter` option.
+```javascript
+// equivalent to setting 'foo:bar'
+cache.set(['foo', 'bar'], { a: 'baz' }, function (err, value) {
+  if (err) throw err;
+  console.log(value); //-> {a:'baz'}
 });
 ```
 
