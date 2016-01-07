@@ -290,6 +290,34 @@ describe('cacheman', function () {
     });
   });
 
+  it('should support a custom default ttl', function (done) {
+    let c = new Cacheman('test', { ttl: 2000 });
+    let key = "k" + Date.now();
+    c.set(key, 'default human way', function (err) {
+      if (err) return done(err);
+      setTimeout(function () {
+        c.get(key, function (err, data) {
+          assert.equal(data, 'default human way');
+          done();
+        });
+      }, 1100);
+    });
+  });
+
+  it('should support a custom default ttl in human readable seconds', function (done) {
+    let c = new Cacheman('test', { ttl: '2s' });
+    let key = "k" + Date.now();
+    c.set(key, 'default human way', function (err) {
+      if (err) return done(err);
+      setTimeout(function () {
+        c.get(key, function (err, data) {
+          assert.equal(data, 'default human way');
+          done();
+        });
+      }, 1100);
+    });
+  });
+
   it('should wrap a function in cache', function (done) {
     this.timeout(0);
     let key = "k" + Date.now();
