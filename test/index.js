@@ -50,6 +50,11 @@ describe('cacheman', function () {
     assert.equal(c3._prefix, 'myprefix:foo:');
   });
 
+  it('should have a default ttl', function () {
+    assert.equal(cache._ttl, 60);
+    assert.equal(cache.options.ttl, 60);
+  })
+
   it('should not allow invalid keys', function (done) {
     let msg = 'Invalid key, key must be a string or array.';
     cache.set(1, {}, function (err) {
