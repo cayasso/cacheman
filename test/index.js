@@ -28,6 +28,11 @@ describe('cacheman', function () {
     cache.clear(done);
   });
 
+  it('should return a proper CommonJS module, not an ES6-only one', function() {
+    var mod = require('../node/index');
+    assert.equal(typeof(mod), 'function');
+  });
+
   it('should have main methods', function () {
     assert.ok(cache.set);
     assert.ok(cache.get);
