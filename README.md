@@ -54,7 +54,7 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 ### Cacheman([name, [options]])
 
-Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
+Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds, `delimiter` to change the delimiter used for array keys (default: `':'`), `Promise` can set a Promise library to use for promises, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
 
 You can also pass an already initialized client `engine` as valid engine so you can re-use among multiple cacheman instances.
 
@@ -92,6 +92,11 @@ cache.set('foo', { a: 'bar' }, function (err, value) {
   if (err) throw err;
   console.log(value); //-> {a:'bar'}
 });
+
+cache.set('foo', { a: 'bar' })
+  .then(function (value) {
+    console.log(value); //-> {a:'bar'}
+  });
 ```
 
 Or add a TTL(Time To Live) in seconds like this:
@@ -114,6 +119,15 @@ cache.set('foo', { a: 'bar' }, '45s', function (err, value) {
 });
 ```
 
+The key may also be an array. It will be joined into a string using the `delimiter` option.
+```javascript
+// equivalent to setting 'foo:bar'
+cache.set(['foo', 'bar'], { a: 'baz' }, function (err, value) {
+  if (err) throw err;
+  console.log(value); //-> {a:'baz'}
+});
+```
+
 ### cache.get(key, fn)
 
 Retrieves a value for a given key, if there is no value for the given key a null value will be returned.
@@ -123,6 +137,11 @@ cache.get('foo', function (err, value) {
   if (err) throw err;
   console.log(value);
 });
+
+cache.get('foo')
+  .then(function (value) {
+    console.log(value);
+  });
 ```
 
 ### cache.del(key, [fn])
@@ -134,6 +153,11 @@ cache.del('foo', function (err) {
   if (err) throw err;
   // foo was deleted
 });
+
+cache.del('foo')
+  .then(function () {
+    // foo was deleted
+  });
 ```
 
 ### cache.clear([fn])
@@ -145,6 +169,11 @@ cache.clear(function (err) {
   if (err) throw err;
   // cache is now clear
 });
+
+cache.clear()
+  .then(function () {
+    // cache is now clear
+  });
 ```
 
 ### cache.cache(key, data, ttl, [fn])
@@ -157,6 +186,11 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
   if (err) throw err;
   console.log(value); //-> {a:'bar'}
 });
+
+cache.cache('foo', { a: 'bar' }, '45s')
+  .then(function () {
+    console.log(value); //-> {a:'bar'}
+  });
 ```
 
 ### cache.use(fn)
@@ -181,7 +215,7 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 });
 ```
 
-Or we can add a middleware to ovewrite the value:
+Or we can add a middleware to overwrite the value:
 
 ```javascript
 function overwriteMiddleware (val) {
@@ -219,6 +253,10 @@ cache.cache('foo', { a: 'bar' }, '45s', function (err) {
 Wraps a function in cache. The first time the function is run, its results are
 stored in cache so subsequent calls retrieve from cache instead of calling the function.
 
+The `work` function can call a node style callback argument or return a value including a promise.
+
+The `work` function and `ttl` can also be passed in the opposite order. This is primarily to make promise returning calls cleaner.
+
 ```javascript
 function work(callback) {
   callback(null, { a: 'foo' });
@@ -228,6 +266,26 @@ cache.wrap('foo', work, '45s', function (err, data) {
   console.log(data); //-> {a: 'foo'}
 });
 
+cache.wrap('foo', work, '45s')
+  .then(function (data) {
+    console.log(data); //-> {a: 'foo'}
+  });
+
+cache.wrap('foo', '45s',
+  function() {
+    return Promise.resolve({ a: 'foo' });
+  })
+  .then(function (data) {
+    console.log(data); //-> {a: 'foo'}
+  });
+
+cache.wrap('foo', '45s',
+  function() {
+    return { a: 'foo' };
+  })
+  .then(function (data) {
+    console.log(data); //-> {a: 'foo'}
+  });
 ```
 
 ## Run tests
