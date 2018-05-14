@@ -37,7 +37,7 @@
     "pre-commit": "^1.1.2"
   },
   "dependencies": {
-    "cacheman-memory": "^1.0.2",
+    "cacheman-memory": "^1.1.0",
     "ms": "^0.7.1"
   }
 }
