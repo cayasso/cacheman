@@ -109,7 +109,7 @@ cache.set('foo', { a: 'bar' }, 60, function (err, value) {
 });
 ```
 
-You can also use humman readable values for `ttl` like: `1s`, `1m`, etc. Check out the [ms](https://github.com/guille/ms.js) project for additional information on supported formats.
+You can also use human readable values for `ttl` like: `1s`, `1m`, etc. Check out the [ms](https://github.com/guille/ms.js) project for additional information on supported formats.
 
 ```javascript
 // key will expire in 45 seconds
