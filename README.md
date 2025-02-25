@@ -54,7 +54,7 @@ cache.set('my key', { foo: 'bar' }, function (error) {
 
 ### Cacheman([name, [options]])
 
-Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds, `delimiter` to change the delimiter used for array keys (default: `':'`), `Promise` can set a Promise library to use for promises, `engine` that could be "memory", "in file", "redis" or "mongo", and the corresponding engine options that can be passed like `port`, `host`, etc.
+Create `cacheman` instance. It accepts an `name`(optional) and  `options`(optional). `options` can contain `ttl` to set the default "Time To Live" in seconds (default: `60s`), `delimiter` to change the delimiter used for array keys (default: `':'`), `Promise` can set a Promise library to use for promises, `engine` that could be "memory", "in file", "redis" or "mongo" (default: `memory`), and the corresponding engine options that can be passed like `port`, `host`, etc.
 
 You can also pass an already initialized client `engine` as valid engine so you can re-use among multiple cacheman instances.
 
